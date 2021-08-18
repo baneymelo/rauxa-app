@@ -1,5 +1,5 @@
 {
-    "javascript.implicitProjectConfig.checkJs": true,
+    //"javascript.implicitProjectConfig.checkJs": true,
     "editor.quickSuggestions": {
         "comments": true
     }

@@ -25,5 +25,5 @@ sequelize.sync({ force: false })
     })
 
 module.exports =  {
-    Image
+    ImageSchema: Image
 }

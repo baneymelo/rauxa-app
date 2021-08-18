@@ -6,6 +6,13 @@ module.exports = (sequelize, type) => {
             autoIncrement: true,
             allowNull: false,
         },
+        url: {
+            type: type.STRING,
+            validate: {
+                isUrl: true,      
+            },
+            allowNull: false,
+        },
         name: {
             type: type.STRING,
             allowNull: false,
@@ -21,7 +28,10 @@ module.exports = (sequelize, type) => {
             type: type.STRING,
             allowNull: false,
             validate: {
-                min: 10
+                len: {
+                    arg: [7,12],
+                    msg: 'Valid phone numbers between 6 and 12 digits'
+                }
             }
         },
     })
