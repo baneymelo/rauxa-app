@@ -1,5 +1,5 @@
  /* eslint-disable */
- import React, { useEffect, useState } from 'react'
+ import React, { useContext, useEffect, useState } from 'react'
 import { makeStyles } from '@material-ui/core/styles';
 import ImageList from '@material-ui/core/ImageList';
 import ImageListItem from '@material-ui/core/ImageListItem';
@@ -7,6 +7,7 @@ import ImageListItemBar from '@material-ui/core/ImageListItemBar';
 import ListSubheader from '@material-ui/core/ListSubheader';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import axios from '../axios';
+import ImageContext from '../ContextAPI/ImageContext';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -31,18 +32,9 @@ const useStyles = makeStyles((theme) => ({
 function FileViewer() {
   const classes = useStyles();
 
-  const [itemData, setItemData] = useState(null)
+  const { itemData, setItemData } = useContext(ImageContext)
 
-  const getImages = async () => {
-    const { data } = await axios.get('/gallery')
-    setItemData(data.data)
-  }
-
-  useEffect(()=>{
-    getImages()
-  },[])
-
-  if(!itemData) <CircularProgress />
+  if(!itemData) return <CircularProgress />
 
   return (
     <div className={classes.root}>

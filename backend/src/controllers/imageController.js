@@ -14,17 +14,6 @@ module.exports.upload = async (req, res) => {
                 newImage
             ));
         }
-        
-        /* ImageSchema.create(image)
-        .then((newImage) => res.send(msg(
-            true,
-            'Image uploaded successfully',
-            newImage
-        )))
-        .catch((error) => res.status(400).send(msg(
-            false,
-            `${error.message}`
-        ))); */
     } catch (error) {
         console.error(error.message);
         return res.status(400).send(msg(
@@ -35,7 +24,7 @@ module.exports.upload = async (req, res) => {
 }
 
 module.exports.gallery = async (req, res) => {
-    const images = await ImageSchema.findAll();
+    const images = await ImageSchema.findAll({ limit: 10, order: [['updatedAt', 'DESC']]});
     return res.send(msg(
         true,
         'Fetched images successfully',

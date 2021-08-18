@@ -1,11 +1,13 @@
 // @ts-nocheck
  /* eslint-disable */
-import { useEffect, useRef, useState } from "react";
+import { useContext, useEffect, useRef, useState } from "react";
 import axios from '../axios';
 import { Formik, ErrorMessage, Field} from "formik"
 import MediaCard from "./MediaCard";
 import { Button, TextField, Input } from "@material-ui/core";
 import { makeStyles } from '@material-ui/core/styles';
+import Notify from "./Notify";
+import ImageContext from "../ContextAPI/ImageContext";
 
 const useStyles = makeStyles({
     root: {
@@ -47,27 +49,15 @@ const useStyles = makeStyles({
     }
 })
 
-const initialDesc = {
-    name: null, 
-    email: null, 
-    phone: null, 
-}
-
-const initialErrInput = {
-    email: null, 
-    phone: null, 
-}
-
 
 function FileForm() {
 
     const classes = useStyles();
 
-    const [preview, setPreview] = useState(null);
-    const [file, setFile] = useState(null);
-    const [description, setDescription] = useState(initialDesc);
-    const [errInput, setErrInput] = useState(initialErrInput);
-    const [formImage, setFormImage] = useState(null);
+    const [success, setSuccess] = useState(false);
+    const [msg, setMsg] = useState('');
+
+    const { preview, setPreview, file, setFile, description, setDescription, errInput, setErrInput, formImage, setFormImage, initialDesc, initialErrInput, setItemData, } = useContext(ImageContext)
 
     const cancelButton = useRef();
 
@@ -140,13 +130,18 @@ function FileForm() {
     }
 
     const postImage = async () => {
-        const res = await axios.post('/upload', formImage);
-        console.log(res.data);
+        const { data } = await axios.post('/upload', formImage);
+        console.log(data);
+        setSuccess(data.success)
+        setMsg(data.message)
+
+        if(data.success){
+            setItemData(prevState => [ data.data, ...prevState ])
+        }
     }
 
     useEffect(() => {
         formImage && postImage()
-        
     }, [formImage])
 
     return (
@@ -252,7 +247,7 @@ function FileForm() {
                 </form>
               )}
             </Formik>
-            
+            <Notify success={success} msg={msg}/>
         </div>
     )
 }
