@@ -130,7 +130,7 @@ function FileForm() {
     }
 
     const postImage = async () => {
-        const { data } = await axios.post('/upload', formImage);
+        const { data } = await axios.post('/image', formImage);
         console.log(data);
         setSuccess(data.success)
         setMsg(data.message)

@@ -1,0 +1,108 @@
+{
+  "openapi": "3.0.0",
+  "info": {
+    "version": "1.0.0",
+    "title": "Rauxa App API",
+    "description": "Image Uploader to AWS S3 with AWS RDS (MySQL) integration",
+    "contact": {
+      "name": "Baney Acosta",
+      "email": "baneymelo@gmail.com"
+    }
+  },
+  "tags": [
+    {
+      "name": "image",
+      "description": "Operations about image"
+    }
+  ],
+  "paths": {
+    "/image": {
+      "post": {
+        "tags": [
+          "image"
+        ],
+        "summary": "Add a new image",
+        "requestBody": {
+          "description": "",
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Image"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Image uploaded successfully"
+          },
+          "400": {
+            "description": "Bad request"
+          }
+        }
+      }
+    },
+    "/images": {
+      "get": {
+        "tags": [
+          "image"
+        ],
+        "summary": "Fetch all images",
+        "responses": {
+          "200": {
+            "description": "Fetched images successfully"
+          },
+          "400": {
+            "description": "Bad request"
+          }
+        }
+      }
+    }
+  },
+  "servers": [
+    {
+      "url": "http://localhost:4000/v1"
+    }
+  ],
+  "components": {
+    "schemas": {
+      "Image": {
+        "properties": {
+          "id": {
+            "type": "integer",
+            "description": "The Image identifier"
+          },
+          "url": {
+            "type": "string",
+            "description": "The location file URL"
+          },
+          "name": {
+            "type": "string",
+            "description": "The name of image"
+          },
+          "email": {
+            "type": "string",
+            "description": "The email associated"
+          },
+          "phone": {
+            "type": "string",
+            "description": "The phone associated"
+          }
+        },
+        "required": [
+          "url",
+          "name",
+          "email",
+          "phone"
+        ],
+        "example": {
+          "url": "https://rauxa-s3.s3.amazonaws.com/bcit.jpg",
+          "name": "BCIT",
+          "email": "contactus@bcit.edu.ca",
+          "phone": 16044345734
+        }
+      }
+    }
+  }
+}

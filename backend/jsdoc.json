@@ -12,7 +12,7 @@
     },
     "opts": {
         "recurse": "true",
-        "destination": "./doc",
+        "destination": "./docs/documentation",
         "template": "node_modules/tui-jsdoc-template"
     }
 }

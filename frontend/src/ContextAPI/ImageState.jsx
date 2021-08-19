@@ -24,7 +24,7 @@ function ImageState({children}) {
     const [itemData, setItemData] = useState(null)
 
     const getImages = async () => {
-        const { data } = await axios.get('/gallery')
+        const { data } = await axios.get('/images')
         setItemData(data.data)
     }
 

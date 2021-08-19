@@ -8,7 +8,7 @@ module.exports.upload = async (req, res) => {
         console.log(image);
         const newImage = await ImageSchema.create(image)
         if(newImage){
-            return res.send(msg(
+            return res.status(201).send(msg(
                 true,
                 'Image uploaded successfully',
                 newImage
