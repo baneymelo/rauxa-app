@@ -18,5 +18,9 @@ jobs:
       - uses: actions/setup-node@v2 
         with: 
           node-version: '12'
-      - run: npm install
-      - run: npm test
+      - name: Install dependencies
+        working-directory: ./backend
+        run: npm install
+      - name: Testing
+        working-directory: ./backend
+        run: npm test
