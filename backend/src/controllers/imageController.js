@@ -1,6 +1,20 @@
+// @ts-nocheck
 const location = require("aws-sdk/clients/location");
 const { ImageSchema } = require("../config/dbseed");
 const msg = require("../utils/msg");
+
+/**
+ * @module Controllers
+ */
+
+/**
+ * Upload image.
+ * @async
+ * @function upload
+ * @param {{image: object}} req - Express request object
+ * @param {object} res - Express response object
+ * @returns {Promise<{success: Boolean, message: String, data: Array<{object}>}>} query response
+ */
 
 module.exports.upload = async (req, res) => {
     try {
@@ -22,6 +36,16 @@ module.exports.upload = async (req, res) => {
         ));
     }
 }
+
+
+/**
+ * Fetch all the images.
+ * @async
+ * @function gallery
+ * @param {Object} req - Express request object
+ * @param {Object} res - Express response object
+ * @return {Promise<{ success: Boolean, message: String, data: Array<{Object}> }>} query response
+ */
 
 module.exports.gallery = async (req, res) => {
     const images = await ImageSchema.findAll({ limit: 10, order: [['updatedAt', 'DESC']]});

@@ -24,6 +24,17 @@ sequelize.sync({ force: false })
         console.log(err);
     })
 
+const cleanDB = () => {
+    sequelize.sync({ force: true })
+    .then(() => {
+        console.log('Reset DB Connected');
+    })
+    .catch(err => {
+        console.log(err);
+    })
+}
+
 module.exports =  {
-    ImageSchema: Image
+    ImageSchema: Image,
+    cleanDB
 }

@@ -13,8 +13,8 @@ app.use(cors())
 app.use(express.json())
 
 app.use("/api-docs", swaggerUI.serve);
-app.get('/api-docs', swaggerUI.setup(swaggerDocument))
+app.get("/api-docs", swaggerUI.setup(swaggerDocument))
 
-app.use('/v1/', imageRouter)
+app.use("/v1/", imageRouter)
 
 module.exports = app;

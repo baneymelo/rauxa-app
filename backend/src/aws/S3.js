@@ -28,5 +28,29 @@ const upload = multer({
     })
 });
 
+const initUpload = (files, ext) => {
+    const params = files.map((file,i) => {
+        return {
+            Bucket: 'rauxa-s3',
+            Key: `${uuid()}${ext[i]}`,
+            Body: file,
+            'ContentEncoding': 'base64', 
+            Metadata: {
+                'Content-Type': 'image/jpeg'
+            }
+        }
+    });
 
-module.exports = upload;
+    for (const param of params) {
+        s3.upload(param, (s3err, data) => {
+            if (s3err) throw s3err;
+            console.log(`${data.Location}`);
+        })
+    } 
+
+}
+
+module.exports = {
+    upload,
+    initUpload
+};
